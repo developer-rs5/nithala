@@ -91,11 +91,11 @@ function takeCommand(message) {
 // Function to query the Gemini API
 async function queryGeminiAPI(question) {
     try {
-        const response = await fetch('AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck', {
+        const response = await fetch('https://api.gemini.googleapis.com/v1/text:generate', {
             method: 'POST', // or 'GET', depending on the API requirements
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_API_KEY' // if needed
+                'Authorization': 'Bearer AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck' // if needed
             },
             body: JSON.stringify({ question: question }) // Adjust based on API requirements
         });
