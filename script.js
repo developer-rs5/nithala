@@ -71,6 +71,13 @@ function takeCommand(message) {
         speak("searching on Google...");
         window.open(`https://www.google.com/search?q=${query}`, "_blank");
     }
+    else if (message.startsWith("say")) {
+        let saymsg = message.replace("say", "").trim();
+        speak(saymsg);
+    }
+    else if (message.includes("about developer rs"))||message.includes("who is developer rs") {
+        speak("here is the websire of about developer rs");
+        window.open("https://developer-rs5.github.io/Portfolio", "_blank");
     // Dynamic open (app name) logic
     else if (message.startsWith("open ")) {
         let appName = message.replace("open ", "").trim();
