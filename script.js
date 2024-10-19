@@ -1,88 +1,119 @@
-let btn=document.querySelector("#btn")
-let content=document.querySelector("#content")
-let voice=document.querySelector("#voice")
+let btn = document.querySelector("#btn");
+let content = document.querySelector("#content");
+let voice = document.querySelector("#voice");
 
-function speak(text){
-    let text_speak=new SpeechSynthesisUtterance(text)
-    text_speak.rate=1
-    text_speak.pitch=1
-    text_speak.volume=1
-    text_speak.lang="hi-GB"
-    window.speechSynthesis.speak(text_speak)
-}
+// Array of random questions
+let randomQuestions = [
+    "What is your favorite programming language?",
+    "How do you stay motivated while coding?",
+    "What are some tips for becoming a better developer?",
+    "What is the latest technology trend you are excited about?",
+    "Tell me about your current coding project."
+];
 
-function wishMe(){
-    let day=new Date()
-    let hours=day.getHours()
-    if(hours>=0 && hours<12){
-        speak("Good Morning Sir")
-    }
-    else if(hours>=12 && hours <16){
-        speak("Good afternoon Sir")
-    }else{
-        speak("Good Evening Sir")
-    }
-}
-// window.addEventListener('load',()=>{
-//     wishMe()
-// })
-let speechRecognition= window.SpeechRecognition || window.webkitSpeechRecognition 
-let recognition =new speechRecognition()
-recognition.onresult=(event)=>{
-    let currentIndex=event.resultIndex
-    let transcript=event.results[currentIndex][0].transcript
-    content.innerText=transcript
-   takeCommand(transcript.toLowerCase())
+function speak(text) {
+    let text_speak = new SpeechSynthesisUtterance(text);
+    text_speak.rate = 1;
+    text_speak.pitch = 1;
+    text_speak.volume = 1;
+    text_speak.lang = "hi-GB";
+    window.speechSynthesis.speak(text_speak);
 }
 
-btn.addEventListener("click",()=>{
-    recognition.start()
-    voice.style.display="block"
-    btn.style.display="none"
-})
-function takeCommand(message){
-   voice.style.display="none"
-    btn.style.display="flex"
-    if(message.includes("hello")||message.includes("hey")){
-        speak("hello sir,what can i help you?")
+function wishMe() {
+    let day = new Date();
+    let hours = day.getHours();
+    if (hours >= 0 && hours < 12) {
+        speak("Good Morning Sir");
     }
-    else if(message.includes("who are you")){
-        speak("i am virtual assistant ,created by Developer RS")
-    }else if(message.includes("open youtube")){
-        speak("opening youtube...")
-        window.open("https://youtube.com/","_blank")
-    }
-    else if(message.includes("open google")){
-        speak("opening google...")
-        window.open("https://google.com/","_blank")
-    }
-    else if(message.includes("open facebook")){
-        speak("opening facebook...")
-        window.open("https://facebook.com/","_blank")
-    }
-    else if(message.includes("open instagram")){
-        speak("opening instagram...")
-        window.open("https://instagram.com/","_blank")
-    }
-    else if(message.includes("open calculator")){
-        speak("opening calculator..")
-        window.open("calculator://")
-    }
-    else if(message.includes("open whatsapp")){
-        speak("opening whatsapp..")
-        window.open("whatsapp://")
-    }
-    else if(message.includes("time")){
-      let time=new Date().toLocaleString(undefined,{hour:"numeric",minute:"numeric"})
-      speak(time)
-    }
-    else if(message.includes("date")){
-        let date=new Date().toLocaleString(undefined,{day:"numeric",month:"short"})
-        speak(date)
-      }
-    else{
-        let finalText="this is what i found on internet regarding" + message.replace("shipra","") || message.replace("shifra","")
-        speak(finalText)
-        window.open(`https://www.google.com/search?q=${message.replace("shipra","")}`,"_blank")
+    else if (hours >= 12 && hours < 16) {
+        speak("Good Afternoon Sir");
+    } else {
+        speak("Good Evening Sir");
     }
 }
+
+let speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = new speechRecognition();
+recognition.onresult = (event) => {
+    let currentIndex = event.resultIndex;
+    let transcript = event.results[currentIndex][0].transcript;
+    content.innerText = transcript;
+    takeCommand(transcript.toLowerCase());
+}
+
+btn.addEventListener("click", () => {
+    recognition.start();
+    voice.style.display = "block";
+    btn.style.display = "none";
+});
+
+function takeCommand(message) {
+    voice.style.display = "none";
+    btn.style.display = "flex";
+
+    if (message.includes("hello") || message.includes("hey")) {
+        speak("hello sir, what can I help you with?");
+    }
+    else if (message.includes("who are you")) {
+        speak("I am a virtual assistant, created by Developer RS");
+    }
+    else if (message.includes("time")) {
+        let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
+        speak(time);
+    }
+    else if (message.includes("date")) {
+        let date = new Date().toLocaleString(undefined, { day: "numeric", month: "short" });
+        speak(date);
+    }
+    else if (message.includes("search on google")) {
+        let query = message.replace("search on google", "").trim();
+        speak("searching on Google...");
+        window.open(`https://www.google.com/search?q=${query}`, "_blank");
+    }
+    // Dynamic open (app name) logic
+    else if (message.startsWith("open ")) {
+        let appName = message.replace("open ", "").trim();
+        speak(`Opening ${appName}...`);
+        window.open(`https://${appName}.com`, "_blank");
+    }
+    // Random question response
+    else if (message.includes("ask me a question")) {
+        let randomQuestion = randomQuestions[Math.floor(Math.random() * randomQuestions.length)];
+        speak(randomQuestion);
+    }
+    // Use Gemini API for questions
+    else {
+        queryGeminiAPI(message);
+    }
+}
+
+// Function to query the Gemini API
+async function queryGeminiAPI(question) {
+    try {
+        const response = await fetch('AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck', {
+            method: 'POST', // or 'GET', depending on the API requirements
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_API_KEY' // if needed
+            },
+            body: JSON.stringify({ question: question }) // Adjust based on API requirements
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        const answer = data.answer || "I'm sorry, I couldn't find an answer.";
+        speak(answer);
+    } catch (error) {
+        console.error('Error fetching data from Gemini API:', error);
+        speak("Sorry, there was an error fetching the response.");
+    }
+}
+
+// Automatically wish the user based on the time of day when the page loads
+window.addEventListener('load', () => {
+    wishMe();
+});
