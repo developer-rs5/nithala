@@ -58,6 +58,10 @@ function takeCommand(message) {
     else if (message.includes("who are you")) {
         speak("I am a virtual assistant, created by Developer RS");
     }
+    else if ((message.includes("develop") || message.includes("developer") || message.includes("create") || message.includes("creator")) &&
+         (message.includes("you") || message.includes("your"))) {
+    speak("My developer is RS. and created me in html,css,js");
+    }    
     else if (message.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
         speak(time);
