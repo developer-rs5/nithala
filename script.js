@@ -1,7 +1,7 @@
 let btn = document.querySelector("#btn");
 let content = document.querySelector("#content");
 let voice = document.querySelector("#voice");
-
+const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck'
 // Array of random questions
 let randomQuestions = [
     "Tera favorite programming language kaunsa hai?",
@@ -93,38 +93,32 @@ function takeCommand(message) {
         speak(randomQuestion);
     } 
     else {
-        queryChatGPTAPI(message);
+        gemini(messages);
     }
 }
 
 // Function to query the ChatGPT API
-async function queryChatGPTAPI(question) {
-    try {
-        const response = await fetch('https://api.openai.com/v1/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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'  // Replace with your OpenAI API Key
-            },
-            body: JSON.stringify({
-                model: "text-davinci-003",  // You can also use 'gpt-3.5-turbo'
-                prompt: `Casual Hindi mein jawab do. User bola: ${question}`,
-                max_tokens: 100,
-                temperature: 0.7
-            })
-        });
+async function gemini(messages){
+ textElement=aiChatBox.querySelector(".text")
+try{
+const response=await fetch(url,{
+  method:"POST",
+  headers:{"Content-Type": "application/json"},
+  body:JSON.stringify({
+    contents:[{
+      "role": "user",
+      "parts":[{text:`${messages}`}]
+    }]
+  })
+})
+const data=await response.json()
+const apiResponse=data?.candidates[0].content.parts[0].text.trim();
+speak(apiResponse)
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        const answer = data.choices[0].text.trim() || "Arre bhai, kuch samajh nahi aaya!";
-        speak(answer);
-    } catch (error) {
-        console.error('Error fetching data from ChatGPT API:', error);
-        speak("Bhai kuch gadbad ho gayi, dubara try karo.");
-    }
+}
+catch(error){
+  console.log(error)
+  speak(`i got an error,error is ${error}`)
 }
 
 // Automatically wish the user based on the time of day when the page loads
