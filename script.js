@@ -114,7 +114,7 @@ async function gemini(message) {
             body: JSON.stringify({
                 contents: [{
                     "role": "user",
-                    "parts": [{ text: `here is some information about you how to reply userName: ${user_name} type:verycasual useEmjoies: flase language: ${lang} aboutYou: you are a vartusl assistant created by Rishabh message: ${messages}` }]
+                    "parts": [{ text: `here is some information about you how to reply userName: ${user_name} type:verycasual useEmjoies: flase language: ${lang} aboutYou: you are a vartusl assistant created by Rishabh message: ${message}` }]
                 }]
             })
         });
