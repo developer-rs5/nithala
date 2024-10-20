@@ -1,7 +1,8 @@
 let btn = document.querySelector("#btn");
 let content = document.querySelector("#content");
 let voice = document.querySelector("#voice");
-const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck'
+const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck';
+
 // Array of random questions
 let randomQuestions = [
     "Tera favorite programming language kaunsa hai?",
@@ -93,31 +94,30 @@ function takeCommand(message) {
         speak(randomQuestion);
     } 
     else {
-        gemini(messages);
+        gemini(message);
     }
 }
 
-// Function to query the ChatGPT API
-async function gemini(messages){
-try{
-const response=await fetch(url,{
-  method:"POST",
-  headers:{"Content-Type": "application/json"},
-  body:JSON.stringify({
-    contents:[{
-      "role": "user",
-      "parts":[{text:`${messages}`}]
-    }]
-  })
-})
-const data=await response.json()
-const apiResponse=data?.candidates[0].content.parts[0].text.trim();
-speak(apiResponse)
-
-}
-catch(error){
-  console.log(error)
-  speak(`i got an error,error is ${error}`)
+// Function to query the Gemini API
+async function gemini(message) {
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{
+                    "role": "user",
+                    "parts": [{ text: `${message}` }]
+                }]
+            })
+        });
+        const data = await response.json();
+        const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Sorry, I couldn't fetch a response.";
+        speak(apiResponse);
+    } catch (error) {
+        console.error('Error fetching Gemini API response:', error);
+        speak("Sorry, there was an error fetching the response.");
+    }
 }
 
 // Automatically wish the user based on the time of day when the page loads
