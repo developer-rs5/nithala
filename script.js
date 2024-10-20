@@ -99,7 +99,6 @@ function takeCommand(message) {
 
 // Function to query the ChatGPT API
 async function gemini(messages){
- textElement=aiChatBox.querySelector(".text")
 try{
 const response=await fetch(url,{
   method:"POST",
