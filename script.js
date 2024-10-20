@@ -2,7 +2,7 @@ let btn = document.querySelector("#btn");
 let content = document.querySelector("#content");
 let voice = document.querySelector("#voice");
 const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck';
-
+const user_name = promot('what is your name? sir!');
 // Array of random questions
 let randomQuestions = [
     "Tera favorite programming language kaunsa hai?",
@@ -17,7 +17,7 @@ function speak(text) {
     text_speak.rate = 1;
     text_speak.pitch = 1;
     text_speak.volume = 1;
-    text_speak.lang = "hi-GB";
+    text_speak.lang = "hi-IN";
     window.speechSynthesis.speak(text_speak);
 }
 
@@ -58,10 +58,10 @@ function takeCommand(message) {
         speak("Or bhai, kya scene hai?");
     }
     else if (message.includes("who are you")) {
-        speak("Main ek virtual assistant hoon, mujhe RS bhai ne banaya hai.");
+        speak("Mai ek virtual assistant huu, mujhe RS bhai ne banaya hai.");
     }
     else if ((message.includes("develop") || message.includes("developer") || message.includes("create") || message.includes("creator")) && (message.includes("you") || message.includes("your"))) {
-        speak("Mujhe RS bhai ne banaya hai, aur HTML, CSS, aur JS mein banaya hai.");
+        speak("Mujhe RS bhai ne banaya hai, aur HTML, CSS, aur javascript mein banaya hai.");
     }    
     else if (message.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
@@ -107,7 +107,7 @@ async function gemini(message) {
             body: JSON.stringify({
                 contents: [{
                     "role": "user",
-                    "parts": [{ text: `respond me very casualy and in hindi ${message} reply me in less words` }]
+                    "parts": [{ text: `respond me very casualy,in hindi,don't use anny emojies,my name is ${user_name} and your creator is Rishabh ${message} reply me in less words` }]
                 }]
             })
         });
