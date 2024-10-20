@@ -106,7 +106,7 @@ function takeCommand(message) {
 }
 
 // Function to query the Gemini API
-async function gemini(message) {
+async function gemini(message, user_name, lang) {
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -114,15 +114,22 @@ async function gemini(message) {
             body: JSON.stringify({
                 contents: [{
                     "role": "user",
-                    "parts": [{ text: `here is some information about you how to reply userName: ${user_name} type:verycasual useEmjoies: flase language: ${lang} aboutYou: you are a vartusl assistant created by Rishabh message: ${message}` }]
+                    "parts": [{ 
+                        text: `You are a virtual assistant created by Rishabh. 
+                        Your task is to reply to the user in a very casual tone. 
+                        Do not use emojis. Respond in ${lang}. 
+                        The user's name is ${user_name}. 
+                        Here is the message from the user: ${message}` 
+                    }]
                 }]
             })
         });
+
         const data = await response.json();
         const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Sorry, I couldn't fetch a response.";
         speak(apiResponse);
     } catch (error) {
-        console.error('Error fetching Gemini API response:', error);
+        console.error('Error fetching Gemini API response:', error.message || error);
         speak("Sorry, there was an error fetching the response.");
     }
 }
