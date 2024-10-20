@@ -29,9 +29,9 @@ function wishMe() {
         speak("Good Morning Sir, how can i help you");
     }
     else if (hours >= 12 && hours < 16) {
-        speak("or bahi Good Afternoon ");
+        speak("aur bhai Good Afternoon ");
     } else {
-        speak("araa bahi, Good Evening");
+        speak("araa bhai, Good Evening");
     }
 }
 
@@ -116,7 +116,7 @@ async function gemini(message, user_name, lang) {
                     "role": "user",
                     "parts": [{ 
                         text: `You are a virtual voice assistant created by Rishabh. 
-                        Your task is to reply to the user in a very much casual way like "or bahi" and using less words. 
+                        Your task is to reply to the user in a very much casual way,response in less words. 
                         Do not use emojis because this message will be spoken. Respond in ${lang}. 
                         The user's name is ${user_name}. 
                         Here is the message from the user: ${message}` 
