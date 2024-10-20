@@ -55,7 +55,7 @@ function takeCommand(message) {
     voice.style.display = "none";
     btn.style.display = "flex";
 
-    if (message.startsWith("set language to ") || message.includes("set language TO")) {
+    if (message.startsWith("set language to ") || message.startWith("language to")) {
         let lang = message.replace("set languae to","").trim();
         if(lang != hindi){
             speak(`I have seated your language to ${lang}`)
@@ -115,9 +115,9 @@ async function gemini(message, user_name, lang) {
                 contents: [{
                     "role": "user",
                     "parts": [{ 
-                        text: `You are a virtual assistant created by Rishabh. 
-                        Your task is to reply to the user in a very casual tone. 
-                        Do not use emojis. Respond in ${lang}. 
+                        text: `You are a virtual voice assistant created by Rishabh. 
+                        Your task is to reply to the user in a very much casual way like "or bahi" and using less words. 
+                        Do not use emojis because this message will be spoken. Respond in ${lang}. 
                         The user's name is ${user_name}. 
                         Here is the message from the user: ${message}` 
                     }]
