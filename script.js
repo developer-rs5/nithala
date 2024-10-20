@@ -35,6 +35,7 @@ function wishMe() {
 
 let speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = new speechRecognition();
+
 recognition.onresult = (event) => {
     let currentIndex = event.resultIndex;
     let transcript = event.results[currentIndex][0].transcript;
@@ -59,7 +60,7 @@ function takeCommand(message) {
         speak("I am a virtual assistant, created by Developer RS");
     }
     else if ((message.includes("develop") || message.includes("developer") || message.includes("create") || message.includes("creator")) && (message.includes("you") || message.includes("your"))) {
-    speak("My developer is RS. and created me in html,css,js");
+        speak("My developer is RS. and created me in html,css,js");
     }    
     else if (message.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
@@ -78,21 +79,19 @@ function takeCommand(message) {
         let saymsg = message.replace("say", "").trim();
         speak(saymsg);
     }
-    else if (message.includes("about developer rs"))||message.includes("who is developer rs") {
-        speak("here is the websire of about developer rs");
+    else if (message.includes("about developer rs") || message.includes("who is developer rs")) {
+        speak("here is the website about developer rs");
         window.open("https://developer-rs5.github.io/Portfolio", "_blank");
-    // Dynamic open (app name) logic
+    } 
     else if (message.startsWith("open ")) {
         let appName = message.replace("open ", "").trim();
         speak(`Opening ${appName}...`);
         window.open(`https://${appName}.com`, "_blank");
     }
-    // Random question response
     else if (message.includes("ask me a question")) {
         let randomQuestion = randomQuestions[Math.floor(Math.random() * randomQuestions.length)];
         speak(randomQuestion);
-    }
-    // Use Gemini API for questions
+    } 
     else {
         queryGeminiAPI(message);
     }
@@ -102,12 +101,12 @@ function takeCommand(message) {
 async function queryGeminiAPI(question) {
     try {
         const response = await fetch('https://api.gemini.googleapis.com/v1/text:generate', {
-            method: 'POST', // or 'GET', depending on the API requirements
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck' // if needed
+                'Authorization': 'Bearer AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck'
             },
-            body: JSON.stringify({ question: question }) // Adjust based on API requirements
+            body: JSON.stringify({ question: question })
         });
 
         if (!response.ok) {
