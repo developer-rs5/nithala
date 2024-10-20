@@ -3,6 +3,7 @@ let content = document.querySelector("#content");
 let voice = document.querySelector("#voice");
 const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck';
 const user_name = prompt('what is your name? sir!');
+let lang = ('english')
 // Array of random questions
 let randomQuestions = [
     "Tera favorite programming language kaunsa hai?",
@@ -25,12 +26,12 @@ function wishMe() {
     let day = new Date();
     let hours = day.getHours();
     if (hours >= 0 && hours < 12) {
-        speak("Subah ho gayi bhai, Good Morning!");
+        speak("Good Morning Sir, how can i help you");
     }
     else if (hours >= 12 && hours < 16) {
-        speak("Dopahar ka waqt hai, Good Afternoon bhai!");
+        speak("or bahi Good Afternoon ");
     } else {
-        speak("Sham ho gayi bhai, Good Evening!");
+        speak("araa bahi, Good Evening");
     }
 }
 
@@ -54,15 +55,21 @@ function takeCommand(message) {
     voice.style.display = "none";
     btn.style.display = "flex";
 
-    if (message.includes("hello") || message.includes("hey")) {
-        speak("Or bhai, kya scene hai?");
+    if (message.startsWith("set language to ") || message.includes("set language TO")) {
+        let lang = message.replace("set languae to","").trim();
+        if(lang != hindi){
+            speak(`I have seated your language to ${lang}`)
+        }
+        else{
+            speak('I have changed your langunge to hindi')
+        }
     }
-    else if (message.includes("who are you")) {
+    /*else if (message.includes("who are you")) {
         speak("Mai ek virtual assistant huu, mujhe RS bhai ne banaya hai.");
     }
     else if ((message.includes("develop") || message.includes("developer") || message.includes("create") || message.includes("creator")) && (message.includes("you") || message.includes("your"))) {
         speak("Mujhe RS bhai ne banaya hai, aur HTML, CSS, aur javascript mein banaya hai.");
-    }    
+    }  */  
     else if (message.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
         speak(`Abhi ${time} baj rahe hain.`);
@@ -107,7 +114,7 @@ async function gemini(message) {
             body: JSON.stringify({
                 contents: [{
                     "role": "user",
-                    "parts": [{ text: `respond me very casualy,in hindi,don't use anny emojies,my name is ${user_name} and your creator is Rishabh ${message} reply me in less words` }]
+                    "parts": [{ text: `here is some information about you how to reply userName: ${user_name} type:verycasual useEmjoies: flase language: ${lang} aboutYou: you are a vartusl assistant created by Rishabh message: ${messages}` }]
                 }]
             })
         });
