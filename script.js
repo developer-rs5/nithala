@@ -107,7 +107,7 @@ async function gemini(message) {
             body: JSON.stringify({
                 contents: [{
                     "role": "user",
-                    "parts": [{ text: `${message}` }]
+                    "parts": [{ text: `respond very casualy,in hindi and less words here is message ${message}` }]
                 }]
             })
         });
