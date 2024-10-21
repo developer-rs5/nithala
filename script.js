@@ -111,11 +111,11 @@ const apiKey = secrets.API; // Get the API key from command-line arguments
 console.log(`The API key is: ${apiKey}`);
 
 // Use the API key to make requests to your service
-const url = 'https://api.openai.com/v1/chat/completions';
+const gpturl = 'https://api.openai.com/v1/chat/completions';
 
 async function chatgpt(message, user_name, lang) {
     try {
-        const response = await fetch(url, {
+        const response = await fetch(gpturl, {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
