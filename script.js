@@ -55,7 +55,7 @@ function takeCommand(message) {
     voice.style.display = "none";
     btn.style.display = "flex";
 
-    if (message.startsWith("set language to ") || message.startWith("language to")) {
+    if (message.startsWith("set language to ") || message.startsWith("language to")) {
         let lang = message.replace("set languae to","").trim();
         if(lang != hindi){
             speak(`I have seated your language to ${lang}`)
