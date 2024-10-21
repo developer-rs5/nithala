@@ -103,9 +103,9 @@ async function gemini(message, user_name, lang) {
                 contents: [{
                     "role": "user",
                     "parts": [{ 
-                        text: `You are a virtual assistant created by Rishabh. 
-                        Your task is to reply to the user in a very casual tone. 
-                        Do not use emojis. Respond in ${lang}. 
+                        text: `You are a virtual assistant named nithalla and created by Rishabh. 
+                        Your task is to reply to the user in a very casual way. 
+                        Do not use emojis. brcouse this message will spoken. Respond in ${lang}. 
                         The user's name is ${user_name}. 
                         Here is the message from the user: ${message}` 
                     }]
