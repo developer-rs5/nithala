@@ -101,38 +101,51 @@ function takeCommand(message) {
         speak(randomQuestion);
     } 
     else {
-        gemini(message);
+        chatgpt(message);
     }
 }
 
 // Function to query the Gemini API
-async function gemini(message, user_name, lang) {
+const apiKey = secrets.API; // Get the API key from command-line arguments
+
+console.log(`The API key is: ${apiKey}`);
+
+// Use the API key to make requests to your service
+const url = 'https://api.openai.com/v1/chat/completions';
+
+async function chatgpt(message, user_name, lang) {
     try {
         const response = await fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`  // Use the API key from the command-line argument
+            },
             body: JSON.stringify({
-                contents: [{
-                    "role": "user",
-                    "parts": [{ 
-                        text: `You are a virtual voice assistant created by Rishabh. 
-                        Your task is to reply to the user in a very much casual way. response in less words. 
-                        Do not use emojis because this message will be spoken. Respond in ${lang}. 
-                        The user's name is ${user_name}. 
-                        Here is the message from the user: ${message}` 
-                    }]
-                }]
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "system",
+                        content: `You are a virtual assistant created by Rishabh. Your task is to reply to the user in a very casual tone. Do not use emojis. Respond in ${lang}.`
+                    },
+                    {
+                        role: "user",
+                        content: `The user's name is ${user_name}. Here is the message from the user: ${message}`
+                    }
+                ]
             })
         });
 
         const data = await response.json();
-        const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Sorry, I couldn't fetch a response.";
-        speak(apiResponse);
+        const apiResponse = data?.choices?.[0]?.message?.content?.trim() || "Sorry, I couldn't fetch a response.";
+        console.log(apiResponse); // Output the response
     } catch (error) {
-        console.error('Error fetching Gemini API response:', error.message || error);
-        speak("Sorry, there was an error fetching the response.");
+        console.error('Error fetching API response:', error.message || error);
     }
 }
+
+// Call the function with some example parameters
+
 
 // Automatically wish the user based on the time of day when the page loads
 window.addEventListener('load', () => {
