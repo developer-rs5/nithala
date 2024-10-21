@@ -117,6 +117,7 @@ async function gemini(message, user_name, lang) {
         const data = await response.json();
         const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Sorry, I couldn't fetch a response.";
         speak(apiResponse);
+        console.log(apiResponse);
     } catch (error) {
         console.error('Error fetching Gemini API response:', error.message || error);
         speak("bhai sorry .lakin api ma kuch error aaya ha wapis puch");
