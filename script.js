@@ -139,6 +139,7 @@ async function chatgpt(message, user_name, lang) {
 
         const data = await response.json();
         const apiResponse = data?.choices?.[0]?.message?.content?.trim() || "Sorry, I couldn't fetch a response.";
+        speak(apiResponse);
         console.log(apiResponse); // Output the response
     } catch (error) {
         console.error('Error fetching API response:', error.message || error);
