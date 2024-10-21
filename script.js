@@ -4,6 +4,7 @@ let voice = document.querySelector("#voice");
 const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck';
 const user_name = prompt('what is your name? sir!');
 let lang = 'hindi';
+alert(secrets.API)
 // Array of random questions
 let randomQuestions = [
     "Tera favorite programming language kaunsa hai?",
