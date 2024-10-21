@@ -104,8 +104,9 @@ async function gemini(message, user_name, lang) {
                     "role": "user",
                     "parts": [{ 
                         text: `You are a virtual assistant, your name is nithalla and you are created by Rishabh. 
-                        Your task is to reply to the user in a very casual way. 
-                        Do not use emojis brcouse this message will spoken. 
+                        Your task is to reply to the user in a very much casual way. 
+                        Do not use emojis brcouse this message will spoken.
+                        Use less words and use so many casual words
                         The user's name is ${user_name}. 
                         Here is the message from the user: reply me in ${lang} ${message}` 
                     }]
@@ -118,7 +119,7 @@ async function gemini(message, user_name, lang) {
         speak(apiResponse);
     } catch (error) {
         console.error('Error fetching Gemini API response:', error.message || error);
-        speak("Sorry, there was an error fetching the response.");
+        speak("bhai sorry .lakin api ma kuch error aaya ha wapis puch");
     }
 }
 
@@ -126,3 +127,5 @@ async function gemini(message, user_name, lang) {
 window.addEventListener('load', () => {
     wishMe();
 });
+
+console.log(`your current language is${lang}`);
