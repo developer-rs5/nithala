@@ -4,6 +4,7 @@ let voice = document.querySelector("#voice");
 const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck'; // Ensure this is secured
 const user_name = prompt('What is your name, sir?');
 let lang = 'hindi';
+const config = require('./config.json');
 
 // Array of random questions
 let randomQuestions = [
@@ -95,7 +96,7 @@ function takeCommand(message) {
 }
 
 // Use your GitHub secret for the API key
-const apiKey = secrets.API; // Ensure this is defined in the environment
+const apiKey = config.API; // Ensure this is defined in the environment
 
 async function chatgpt(message) {
     const gpturl = 'https://api.openai.com/v1/chat/completions'; // Your GPT URL
