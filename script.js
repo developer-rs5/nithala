@@ -1,10 +1,10 @@
 let btn = document.querySelector("#btn");
 let content = document.querySelector("#content");
 let voice = document.querySelector("#voice");
-const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck';
-const user_name = prompt('what is your name? sir!');
+const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDrMuxxnZ3l_AlGOZI3uI1IITG0sHxT4ck'; // Ensure this is secured
+const user_name = prompt('What is your name, sir?');
 let lang = 'hindi';
-alert(secrets.API)
+
 // Array of random questions
 let randomQuestions = [
     "Tera favorite programming language kaunsa hai?",
@@ -27,12 +27,11 @@ function wishMe() {
     let day = new Date();
     let hours = day.getHours();
     if (hours >= 0 && hours < 12) {
-        speak("Good Morning Sir, how can i help you");
-    }
-    else if (hours >= 12 && hours < 16) {
-        speak("aur bhai Good Afternoon ");
+        speak("Good Morning Sir, how can I help you?");
+    } else if (hours >= 12 && hours < 16) {
+        speak("Aur bhai, Good Afternoon");
     } else {
-        speak("araa bhai, Good Evening");
+        speak("Araa bhai, Good Evening");
     }
 }
 
@@ -57,20 +56,9 @@ function takeCommand(message) {
     btn.style.display = "flex";
 
     if (message.startsWith("set language to ") || message.startsWith("language to")) {
-        let lang = message.replace("languae to","").trim();
-        if(lang != hindi){
-            speak(`I have seated your language to ${lang}`)
-        }
-        else{
-            speak('I have changed your langunge to hindi')
-        }
+        let lang = message.replace(/language to /i, "").trim(); // Fixed typo and used regex
+        speak(`I have set your language to ${lang}`);
     }
-    /*else if (message.includes("who are you")) {
-        speak("Mai ek virtual assistant huu, mujhe RS bhai ne banaya hai.");
-    }
-    else if ((message.includes("develop") || message.includes("developer") || message.includes("create") || message.includes("creator")) && (message.includes("you") || message.includes("your"))) {
-        speak("Mujhe RS bhai ne banaya hai, aur HTML, CSS, aur javascript mein banaya hai.");
-    }  */  
     else if (message.includes("time")) {
         let time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
         speak(`Abhi ${time} baj rahe hain.`);
@@ -102,25 +90,21 @@ function takeCommand(message) {
         speak(randomQuestion);
     } 
     else {
-        chatgpt(message);
+        chatgpt(message); // Call chatgpt function for other queries
     }
 }
 
-// Function to query the Gemini API
-const apiKey = secrets.API; // Get the API key from command-line arguments
+// Use your GitHub secret for the API key
+const apiKey = secrets.API; // Ensure this is defined in the environment
 
-console.log(`The API key is: ${apiKey}`);
-
-// Use the API key to make requests to your service
-const gpturl = 'https://api.openai.com/v1/chat/completions';
-
-async function chatgpt(message, user_name, lang) {
+async function chatgpt(message) {
+    const gpturl = 'https://api.openai.com/v1/chat/completions'; // Your GPT URL
     try {
-        const response = await fetch(gpturl, {
+        const response = await fetch(gpturl, { // Use your defined GPT URL for the API
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`  // Use the API key from the command-line argument
+                "Authorization": `Bearer ${apiKey}`  // Use the API key from the environment
             },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
@@ -143,11 +127,9 @@ async function chatgpt(message, user_name, lang) {
         console.log(apiResponse); // Output the response
     } catch (error) {
         console.error('Error fetching API response:', error.message || error);
+        speak("Sorry, there was an error fetching the response.");
     }
 }
-
-// Call the function with some example parameters
-
 
 // Automatically wish the user based on the time of day when the page loads
 window.addEventListener('load', () => {
