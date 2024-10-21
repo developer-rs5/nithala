@@ -103,16 +103,16 @@ async function gemini(message, user_name, lang) {
                 contents: [{
                     "role": "user",
                     "parts": [{ 
-                        text: `You are a virtual assistant named nithalla and created by Rishabh. 
+                        text: `You are a virtual assistant, your name is nithalla and you are created by Rishabh. 
                         Your task is to reply to the user in a very casual way. 
-                        Do not use emojis. brcouse this message will spoken. Respond in ${lang}. 
+                        Do not use emojis brcouse this message will spoken. Respond in ${lang} language. 
                         The user's name is ${user_name}. 
                         Here is the message from the user: ${message}` 
                     }]
                 }]
             })
         });
-
+        
         const data = await response.json();
         const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Sorry, I couldn't fetch a response.";
         speak(apiResponse);
