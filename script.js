@@ -90,43 +90,34 @@ function takeCommand(message) {
         speak(randomQuestion);
     } 
     else {
-        chatgpt(message); // Call chatgpt function for other queries
+        gemini(message); // Call chatgpt function for other queries
     }
 }
 
-// Use your GitHub secret for the API key
-const apiKey = 'sk-_u5qzz4_zDhDLV4hDtPMvBNn-Y1A9btp3hYt2qMQA3T3BlbkFJssVPD4qLlH3YnDdTJouzd5Lj1R8qlNTq94NgIbe7sA'; // Ensure this is defined in the environment
-
-async function chatgpt(message) {
-    const gpturl = 'https://api.openai.com/v1/chat/completions'; // Your GPT URL
+async function gemini(message, user_name, lang) {
     try {
-        const response = await fetch(gpturl, { // Use your defined GPT URL for the API
+        const response = await fetch(url, {
             method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`  // Use the API key from the environment
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [
-                    {
-                        role: "system",
-                        content: `You are a virtual assistant created by Rishabh. Your task is to reply to the user in a very casual tone. Do not use emojis. Respond in ${lang}.`
-                    },
-                    {
-                        role: "user",
-                        content: `The user's name is ${user_name}. Here is the message from the user: ${message}`
-                    }
-                ]
+                contents: [{
+                    "role": "user",
+                    "parts": [{ 
+                        text: `You are a virtual assistant created by Rishabh. 
+                        Your task is to reply to the user in a very casual tone. 
+                        Do not use emojis. Respond in ${lang}. 
+                        The user's name is ${user_name}. 
+                        Here is the message from the user: ${message}` 
+                    }]
+                }]
             })
         });
 
         const data = await response.json();
-        const apiResponse = data?.choices?.[0]?.message?.content?.trim() || "Sorry, I couldn't fetch a response.";
+        const apiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Sorry, I couldn't fetch a response.";
         speak(apiResponse);
-        console.log(apiResponse); // Output the response
     } catch (error) {
-        console.error('Error fetching API response:', error.message || error);
+        console.error('Error fetching Gemini API response:', error.message || error);
         speak("Sorry, there was an error fetching the response.");
     }
 }
