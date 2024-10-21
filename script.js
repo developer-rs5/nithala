@@ -128,4 +128,8 @@ window.addEventListener('load', () => {
     wishMe();
 });
 
-console.log(`your current language is${lang}`);
+
+console.log(`your current language is ${lang}`);
+
+console.log(`your name is ${user_name}`);
+
