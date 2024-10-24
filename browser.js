@@ -10,6 +10,6 @@ document.getElementById('assistant-btn').addEventListener('click', function() {
     
     // Redirect to assistant.html after the animation duration
     setTimeout(() => {
-        window.location.href = 'assistant.html'; // Redirect to the assistant file
+        window.location.href = 'assistent.html'; // Redirect to the assistant file
     }, 1000); // Keep the blackout visible for 1 second
 });
