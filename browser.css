@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e9ecef; /* Light background for contrast */
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #ffffff; /* White background for the header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border-bottom: 2px solid #007BFF; /* Blue bottom border */
+}
+
+#logo {
+    flex: 1;
+    font-size: 28px;
+    font-weight: bold;
+    color: #007BFF; /* Logo color */
+}
+
+#search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search {
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #007BFF; /* Blue border */
+    border-radius: 5px;
+    width: 300px; /* Fixed width for the search bar */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+#search:focus {
+    border-color: #0056b3; /* Darker blue on focus */
+    outline: none; /* Remove default outline */
+}
+
+#assistant-btn {
+    padding: 12px 15px;
+    font-size: 16px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007BFF; /* Primary button color */
+    color: white;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+}
+
+#assistant-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+.blackout {
+    position: fixed;
+    top: 0;
+    right: 0; /* Start from the right */
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 999;
+    transform: translateX(100%); /* Offscreen to the right */
+    transition: transform 1s ease-in-out; /* Smooth transition */
+    display: none; /* Initially hidden */
+}
+
+.blackout.show {
+    display: block; /* Show when added */
+    transform: translateX(0); /* Move to the left */
+}
