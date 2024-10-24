@@ -57,8 +57,8 @@ body {
 }
 
 .assistant-icon {
-    width: 30px; /* Set size for the assistant icon */
-    height: 30px; /* Set size for the assistant icon */
+    width: 50px; /* Set size for the assistant icon */
+    height: 50px; /* Set size for the assistant icon */
 }
 
 #assistant-btn:hover::after {
