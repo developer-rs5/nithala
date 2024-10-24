@@ -13,3 +13,18 @@ document.getElementById('assistant-btn').addEventListener('click', function() {
         window.location.href = 'assistent.html'; // Redirect to the assistant file
     }, 1000); // Keep the blackout visible for 1 second
 });
+
+// Add search functionality
+document.getElementById('search').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const query = this.value;
+        if (query) {
+            displaySearchResults(query);
+        }
+    }
+});
+
+document.getElementById('search-btn').addEventListener('click', function() {
+    const query = document.getElementById('search').value;
+    if (query) {
+        display
