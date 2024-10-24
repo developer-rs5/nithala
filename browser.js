@@ -1,30 +1,34 @@
-document.getElementById('assistant-btn').addEventListener('click', function() {
-    const blackout = document.createElement('div');
-    blackout.classList.add('blackout');
-    document.body.appendChild(blackout);
-    
+document.getElementById("assistant-btn").addEventListener("click", function () {
+    // Create a black overlay
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "100%"; // Start off-screen
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.backgroundColor = "black";
+    overlay.style.zIndex = "100"; // Ensure it's on top
+    overlay.style.transition = "left 1s"; // Transition effect
+    document.body.appendChild(overlay);
+
     // Trigger the animation
     setTimeout(() => {
-        blackout.classList.add('show');
-    }, 0); // Start the animation immediately
-    
-    // Redirect to assistant.html after the animation duration
+        overlay.style.left = "0"; // Move overlay into view
+    }, 0);
+
+    // Redirect after 1 second
     setTimeout(() => {
-        window.location.href = 'assistent.html'; // Redirect to the assistant file
-    }, 1000); // Keep the blackout visible for 1 second
+        window.location.href = "assistant.html"; // Redirect to assistant page
+    }, 1000);
 });
 
-// Add search functionality
-document.getElementById('search').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        const query = this.value;
-        if (query) {
-            displaySearchResults(query);
-        }
-    }
-});
+document.getElementById("search-btn").addEventListener("click", function () {
+    const query = document.getElementById("search").value;
+    const searchResults = document.getElementById("search-results");
+    searchResults.innerHTML = ""; // Clear previous results
 
-document.getElementById('search-btn').addEventListener('click', function() {
-    const query = document.getElementById('search').value;
-    if (query) {
-        display
+    // Simulate search result
+    const result = document.createElement("div");
+    result.textContent = `Searching for: ${query}`;
+    searchResults.appendChild(result);
+});
