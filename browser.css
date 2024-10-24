@@ -60,13 +60,6 @@ body {
     width: 30px; /* Set size for the assistant icon */
     height: 30px; /* Set size for the assistant icon */
 }
-#assistant-btn{
-    padding: 10px 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    
-}
 
 #assistant-btn:hover::after {
     content: "Assistant"; /* Text displayed on hover */
