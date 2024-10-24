@@ -18,7 +18,7 @@ document.getElementById("assistant-btn").addEventListener("click", function () {
 
     // Redirect after 1 second
     setTimeout(() => {
-        window.location.href = "assistant.html"; // Redirect to assistant page
+        window.location.href = "assistent.html"; // Redirect to assistant page
     }, 1000);
 });
 
