@@ -33,13 +33,18 @@ body {
 }
 
 #search-btn {
-    padding: 10px 20px; /* Padding for the search button */
+    padding: 10px 10px; /* Padding for the search button */
     border: none; /* No border */
     border-radius: 24px; /* Rounded edges */
     cursor: pointer; /* Pointer on hover */
     background-color: #4285f4; /* Blue background */
     color: white; /* White text */
     margin-left: 10px; /* Space between button and search box */
+}
+
+.searchimg{
+    height: 30px;
+    weight: 30px;
 }
 
 #assistant-btn {
@@ -54,6 +59,13 @@ body {
 .assistant-icon {
     width: 30px; /* Set size for the assistant icon */
     height: 30px; /* Set size for the assistant icon */
+}
+#assistant-btn{
+    padding: 10px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    
 }
 
 #assistant-btn:hover::after {
