@@ -7,29 +7,52 @@
     <link rel="stylesheet" href="browser.css">
 </head>
 <body>
-    <div id="container">
-        <div id="logo">ZENUXS</div>
-        <div id="search-container">
-            <input type="text" id="search" placeholder="Search...">
-            <button id="search-btn">
-                <img src="https://static-00.iconduck.com/assets.00/search-icon-2048x2048-cmujl7en.png" class="assistant-icon">
-            </button>
-            <button id="assistant-btn" title="Assistant">
-                <img src="logo.jpg" alt="Assistant Icon" class="assistant-icon">
-            </button>
-        </div>
-    </div>
-    <div id="center-image">
-        <img src="path/to/your/center-image.png" alt="Center Image">
-    </div>
-    <div id="social-links">
-        <a href="https://facebook.com" target="_blank"><img src="path/to/facebook-icon.png" alt="Facebook"></a>
-        <a href="https://twitter.com" target="_blank"><img src="path/to/twitter-icon.png" alt="Twitter"></a>
-        <a href="https://instagram.com" target="_blank"><img src="path/to/instagram-icon.png" alt="Instagram"></a>
-        <a href="https://your-online-icon-link.com" target="_blank"><img src="path/to/online-icon.png" alt="Online"></a> <!-- New online icon link -->
-    </div>
-    <div id="search-results"></div>
+    <div id="search">
+	<svg viewBox="0 0 420 60" xmlns="http://www.w3.org/2000/svg">
+		<rect class="bar"/>
+		
+		<g class="magnifier">
+			<circle class="glass"/>
+			<line class="handle" x1="32" y1="32" x2="44" y2="44"></line>
+		</g>
 
+		<g class="sparks">
+			<circle class="spark"/>
+			<circle class="spark"/>
+			<circle class="spark"/>
+		</g>
+
+		<g class="burst pattern-one">
+			<circle class="particle circle"/>
+			<path class="particle triangle"/>
+			<circle class="particle circle"/>
+			<path class="particle plus"/>
+			<rect class="particle rect"/>
+			<path class="particle triangle"/>
+		</g>
+		<g class="burst pattern-two">
+			<path class="particle plus"/>
+			<circle class="particle circle"/>
+			<path class="particle triangle"/>
+			<rect class="particle rect"/>
+			<circle class="particle circle"/>
+			<path class="particle plus"/>
+		</g>
+		<g class="burst pattern-three">
+			<circle class="particle circle"/>
+			<rect class="particle rect"/>
+			<path class="particle plus"/>
+			<path class="particle triangle"/>
+			<rect class="particle rect"/>
+			<path class="particle plus"/>
+		</g>
+	</svg>
+	<input type=search name=q aria-label="Search for inspiration"/>
+</div>
+
+<div id="results">
+	
+</div>
     <script src="browser.js"></script>
 </body>
 </html>
